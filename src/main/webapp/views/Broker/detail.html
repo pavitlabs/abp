@@ -1,0 +1,67 @@
+<header ng-switch on="$location.path().indexOf('/Brokers/new') > -1">
+    <h3 ng-switch-when="true">Create a new Broker</h3>
+    <h3 ng-switch-when="false">View or edit Broker</h3>
+</header>
+<form id="BrokerForm" name="BrokerForm" class="form-horizontal" role="form">
+    <div ng-show="displayError" class="alert alert-danger">
+        <strong>Error!</strong> Something broke. Retry, or cancel and start afresh.
+    </div>
+    <div class="form-group" ng-class="{'has-error': BrokerForm.firstName.$invalid}">
+        <label for="firstName" class="col-sm-2 control-label">First Name</label>
+        <div id="firstNameControls" class="col-sm-10">
+            <input id="firstName" name="firstName" type="text" ng-maxlength="30" class="form-control" ng-model="broker.firstName" placeholder="Enter the Broker First Name"></input>
+            <span class="help-block error" ng-show="BrokerForm.firstName.$error.maxlength">maximum length is 30</span>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error': BrokerForm.middleName.$invalid}">
+        <label for="middleName" class="col-sm-2 control-label">Middle Name</label>
+        <div id="middleNameControls" class="col-sm-10">
+            <input id="middleName" name="middleName" type="text" ng-maxlength="30" class="form-control" ng-model="broker.middleName" placeholder="Enter the Broker Middle Name"></input>
+            <span class="help-block error" ng-show="BrokerForm.middleName.$error.maxlength">maximum length is 30</span>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error': BrokerForm.lastName.$invalid}">
+        <label for="lastName" class="col-sm-2 control-label">Last Name</label>
+        <div id="lastNameControls" class="col-sm-10">
+            <input id="lastName" name="lastName" type="text" ng-maxlength="30" class="form-control" ng-model="broker.lastName" placeholder="Enter the Broker Last Name"></input>
+            <span class="help-block error" ng-show="BrokerForm.lastName.$error.maxlength">maximum length is 30</span>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error': BrokerForm.gender.$invalid}">
+        <label for="gender" class="col-sm-2 control-label">Gender</label>
+        <div id="genderControls" class="col-sm-10">
+        <select id="gender" name="gender" class="form-control" ng-model="broker.gender" ng-options="g for g in genderList"  >
+            <option value="">Choose a Gender</option>
+        </select>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error': BrokerForm.geographicalAddresses.$invalid}">
+        <label for="geographicalAddresses" class="col-sm-2 control-label">Geographical Addresses</label>
+        <div id="geographicalAddressesControls" class="col-sm-10">
+            <select id="geographicalAddresses" name="geographicalAddresses" multiple class="form-control" ng-model="geographicalAddressesSelection" ng-options="g.text for g in geographicalAddressesSelectionList">
+                <option value="">Choose a Geographical Addresses</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error': BrokerForm.ssn.$invalid}">
+        <label for="ssn" class="col-sm-2 control-label">Ssn</label>
+        <div id="ssnControls" class="col-sm-10">
+            <input id="ssn" name="ssn" type="text" ng-maxlength="9" class="form-control" ng-model="broker.ssn" placeholder="Enter the Broker Ssn"></input>
+            <span class="help-block error" ng-show="BrokerForm.ssn.$error.maxlength">maximum length is 9</span>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error': BrokerForm.birthDate.$invalid}">
+        <label for="birthDate" class="col-sm-2 control-label">Birth Date</label>
+        <div id="birthDateControls" class="col-sm-10">
+            <date id="birthDate" name="birthDate" ng-model="broker.birthDate" placeholder="Enter the Broker Birth Date"></date>
+            <span class="help-block error" ng-show="BrokerForm.birthDate.$error.dateFormat">does not match format "yyyy-MM-dd" (e.g. 2013-12-01)</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button id="saveBroker" name="saveBroker" class="btn btn-primary" ng-disabled="isClean() || BrokerForm.$invalid" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+            <button id="cancel" name="cancel" class="btn btn-default" ng-click="cancel()"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+            <button id="deleteBroker" name="deleteBroker" class="btn btn-danger" ng-show="broker.id" ng-click="remove()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </div>
+    <div>
+</form>
